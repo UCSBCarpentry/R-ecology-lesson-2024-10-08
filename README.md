@@ -6,7 +6,7 @@
 # _Data Carpentry: R for data analysis and visualization of Ecological Data_
 
 This is an introduction to R designed for participants with no programming
-experience. It can be taught in 3/4 of a day (approximately 6 hours).
+experience. It can be taught in 3/4 of a day (approximately 6 hours). 
 It is a redesigned version of [the original Data Carpentry lesson](https://doi.org/10.5281/zenodo.12684301). 
 
 The initial effort towards this redesign was done by [Michael Culshaw-Maurer](https://github.com/MCMaurer) in another repository in The Carpentries Incubator: https://github.com/carpentries-incubator/R-ecology-lesson (now archived). See Michael's notes while preparing the redesign in [the update_plans.md file](https://github.com/carpentries-incubator/R-ecology-lesson/blob/main/update_plan.md) of that repository.
