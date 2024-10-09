@@ -63,7 +63,7 @@ episodes:
 - visualizing-ggplot.Rmd
 - how-r-thinks-about-data.Rmd
 - working-with-data.Rmd
-- 06-rmarkdown.Rmd
+- quarto.Rmd
 
 # Information for Learners
 learners:
