@@ -1,0 +1,549 @@
+---
+title: Getting started with Quarto
+teaching: 30
+exercises: 15
+output:
+  html_document:
+    df_print: paged
+source: Rmd
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+::: instructor
+-   This is an optional lesson intended to introduce learners to Quarto.
+-   While it is listed after the core lessons, some instructors may
+    prefer to teach it early in the workshop, depending on the audience.
+:::
+
+::: objectives
+-   Create a .qmd document containing R code, text, and plots
+-   Create a YAML header to control output
+-   Understand basic syntax of Quarto
+-   Customize code chunks to control formatting
+-   Use code chunks and in-line code to create dynamic, reproducible
+    documents
+:::
+
+::: questions
+-   What is Quarto?
+-   How can I integrate my R code with text and plots?
+-   How can I convert .qmd files to .html?
+:::
+
+## Quarto
+
+When writing scientific reports, RStudio IDE can effectively weave all
+important components, leveraging its various tools. Quarto is a new
+generation of R Markdown with backward compatibility.
+
+It is an open-source scientific and technical publishing system built on
+Pandoc. Like its predecessor, it is a framework for integrating code,
+text, figures, citations, and more, but with the advantage of supporting
+multi-language projects, more built-in output formats, and options for
+customizing and create dynamic content natively in RStudio, instead of
+relying on external packages.
+
+Quarto allows you to produce research reports with minimal
+reproducibility friction. It provides an environment where you can write
+your complete analysis. It weaves your text, and code, and its output
+together into a single document. The following sections cover examples
+of how to use Quarto for exploring data with collaborators and for
+communicating your science is a flexible type of document that allows
+you to seamlessly combine executable R code, and its output, with text
+in a single document. These documents can be readily converted to
+multiple static and dynamic output formats, including PDF (.pdf), Word
+(.docx), and HTML (.html).
+
+Quarto comes pre-installed with your RStudio IDE (v2022.07 and later),
+so no action is required before we can move on.
+
+## Creating a Quarto file
+
+To create a new Quarto document in RStudio, click File -\> New File -\>
+Quarto Document:
+
+![](fig/new-qmd.png){alt="Screenshot of the New Quarto file dialogue box in RStudio"}
+
+Then click on 'Create Empty Document'. Normally you could enter the
+title of your document, your name (Author), and select the type of
+output, but we will be learning how to start from a blank document.
+
+## Basic components of Quarto
+
+To control the output, a YAML (YAML Ain't Markup Language) header is
+needed:
+
+```         
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+```
+
+The header is defined by the three hyphens at the beginning (`---`) and
+the three hyphens at the end (`---`).
+
+In the YAML, the only required field is the `output:`, which specifies
+the type of output you want. This can be an `html`, a `pdf`, or a
+`word`. We will start with an HTML document and discuss the other
+options later.
+
+After the header, to begin the body of the document, you start typing
+after the end of the YAML header (i.e. after the second `---`).
+
+While we will stick to the basics, it is important to note that Quarto
+provides a rich set of YAML metadata keys to describe front matter
+details and configuration settings to customize how your document will
+render. Even though we won't be able to cover those today, here is an
+example that can inspire you to explore it further:
+
+```         
+---
+title: "Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory"
+date: 2008-02-29
+author:
+  - name: Josiah Carberry
+    id: jc
+    orcid: 0000-0002-1825-0097
+    email: josiah@psychoceramics.org
+    affiliation: 
+      - name: Brown University
+        city: Providence
+        state: RI
+        url: www.brown.edu
+abstract: > 
+  The characteristic theme of the works of Stone is 
+  the bridge between culture and society. ...
+keywords:
+  - Metaphysics
+  - String Theory
+license: "CC BY"
+copyright: 
+  holder: Josiah Carberry
+  year: 2008
+citation: 
+  container-title: Journal of Psychoceramics
+  volume: 1
+  issue: 1
+  doi: 10.5555/12345678
+funding: "The author received no specific funding for this work."
+---
+```
+
+And the image below shows how this Quarto document would look like as an
+html output:
+
+![](fig/example-custom-yaml.png){alt="Screenshot of a Custom YAML HTML document"}
+
+## Markdown syntax
+
+Even though RStudio supports the visual mode, through which you can
+accomplish most formatting without any syntax typing. It is worth
+understanding its basics.
+
+Markdown is a popular markup language that allows you to add formatting
+elements to text, such as **bold**, *italics*, and `code`. The
+formatting will not be immediately visible in a markdown (.md) document,
+like you would see in a Word document. Rather, you add Markdown syntax
+to the text, which can then be converted to various other files that can
+translate the Markdown syntax. Markdown is useful because it is
+lightweight, flexible, and platform independent.
+
+Some platforms provide a real time preview of the formatting, like
+RStudio's visual markdown editor (available from version 1.4).
+
+First, let's create a heading! A `#` in front of text indicates to
+Markdown that this text is a heading. Adding more `#`s make the heading
+smaller, i.e. one `#` is a first level heading, two `##`s is a second
+level heading, etc. upto the 6th level heading.
+
+```         
+# Title
+## Section
+### Sub-section
+#### Sub-sub section
+##### Sub-sub-sub section
+###### Sub-sub-sub-sub section
+```
+
+Ensure to only use a level if the one above is also in use.
+
+Since we have already defined our title in the YAML header, we will use
+a section heading to create an Introduction section.
+
+```         
+## Introduction
+```
+
+You can make things **bold** by surrounding the word with double
+asterisks, `**bold**`, or double underscores, `__bold__`; and
+*italicize* using single asterisks, `*italics*`, or single underscores,
+`_italics_`.
+
+You can also combine **bold** and *italics* to write something
+***really*** important with triple-asterisks, `***really***`, or
+underscores, `___really___`; and, if you're feeling bold (pun intended),
+you can also use a combination of asterisks and underscores,
+`**_really_**`, `**_really_**`.
+
+To create `code-type` font, surround the word with backticks,
+`` `code-type` ``.
+
+Now that we've learned a couple of things, it might be useful to
+implement them:
+
+```         
+## Introduction
+
+This report uses the **tidyverse** package along with the *surveys_complete_77_89.csv* dataset, 
+which has columns that include:
+```
+
+Then we can create a list for the variables using `-`, `+`, or `*` keys.
+
+```         
+## Introduction
+
+This report uses the **tidyverse** package along with the *SAFI* dataset, 
+which has columns that include:
+
+- record_id
+- month
+- day
+- year
+- plot_id
+- species_id
+```
+
+You can also create an ordered list using numbers:
+
+```         
+1. record_id
+2. month
+3. day
+4. year
+5. plot_id
+6. species_id
+```
+
+And nested items by tab-indenting:
+
+```         
+- record_id
+  + unique case number
+- month
+  + month case was recorded
+- day
+  + month case was recorded
+- year
+  + year was recorded
+- plot_id
+  + unique plot ID
+- species_id
+  + species alpha code
+```
+
+For more Markdown syntax see [the following reference
+guide](https://quarto.org/docs/authoring/markdown-basics.html).
+
+Now we can render the document into HTML by clicking the **Render**
+button in the top of the Source pane (top left), or use the keyboard
+shortcut <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> on Windows and
+Linux, and <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> on Mac. If you
+haven't saved the document yet, you will be prompted to do so when you
+**Render** for the first time.
+
+![](fig/qmd-rendering.png){alt="The 'rendering' process"}
+
+## Writing a Quarto report
+
+Now we will add some R code from previous episodes, which means we need
+to make sure **ggplot2** and **dplyr** are loaded. It is not enough to
+load **tidyverse** from the console, we will need to load it within our
+Quarto document. The same applies to our data. To load these, we will
+need to create a 'code chunk' at the top of our document (below the YAML
+header).
+
+A code chunk can be inserted by clicking Code \> Insert Chunk, or by
+using the keyboard shortcuts <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd>
+on Windows and Linux, and <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>I</kbd>
+on Mac.
+
+The syntax of a code chunk is:
+
+```{r}
+
+"Here is where you place the R code that you want to run."
+
+```
+
+In Quarto, you can label a code chunk by adding a label:
+
+```{r}
+#| label: testing
+
+"Here is where you place the R code that you want to run."
+
+```
+
+A Quarto document knows that this text is not part of the report from
+the ```` ``` ```` that begins and ends the chunk. It also knows that the
+code inside of the chunk is R code from the `r` inside of the curly
+braces (`{}`). After the `r` you can add a name for the code chunk. As
+mentioned, Quarto is multi-language and you may enter other programming
+languages for specific code chunks if desired, but since this workshop
+focuses in R, let's stick to that.
+
+Naming a chunk is optional, but recommended to easy any references and
+updates you might need in the future. Note however, that each chunk name
+must be unique, and only contain alphanumeric characters and `-`.
+
+To load **ggplot2** and **dplyr** and our `surveys_complete_77_89.csv`
+file, we will insert a chunk and call it 'genus-comp'. Since we don't
+want this code or the output to show in our HTML document, we add an
+`include = FALSE` option after the code chunk name.
+
+```{{r}}
+#| label: genus-comp
+# Load necessary packages
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+surveys <- read.csv("surveys_complete_77_89.csv", na = "NULL")
+
+# Count occurrences of Dipodomys and Onychomys by year
+occurrences_by_year <- surveys %>%
+  filter(genus %in% c("Dipodomys", "Onychomys")) %>%
+  group_by(year, genus) %>%
+  summarize(count = n(), .groups = 'drop')
+
+# Plotting the data
+ggplot(occurrences_by_year, aes(x = year, y = count, color = genus, group = genus)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Dipodomys vs. Onychomys by Year",
+       x = "Year",
+       y = "Occurrences") +
+  theme_minimal() +
+  scale_x_continuous(breaks = unique(occurrences_by_year$year))
+  scale_color_manual(values = c("Dipodomys", "Onychomys"))
+```
+
+It isn't necessary to **Render** your entire document every time you
+want to see the output. For a short document it is not a problem, but if
+you have many code chunks, that extra computing time can be tedious, if
+you just want to check how that specific code block looks like. If that
+is the case, you can run the code chunk with the green triangle in the
+top right corner of the the chunk, or with the keyboard shortcuts:
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> on Windows and Linux, or
+<kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>C</kbd> on Mac.
+
+Run the code chunk to make sure you get the desired output.
+
+![](fig/genus-comp-plot.png){alt="Genus Comparision Rendered Plot Example"}
+
+Alright, we got a rendered plot, but with a lot of extra stuff we would
+not necessarily want to have in our report. Let's learn how we can
+improve that.
+
+## More on customizing chunk outputs
+
+There are several code and cells output options that you can use to
+customize how things will look like in your rendered .qmd document.
+Bellow are a few of the most commonly used:
+
+| Option    | Options                              | Output                                                                                                                                                |
+|------------------|------------------|-------------------------------------|
+| `eval`    | `TRUE` or `FALSE`                    | Whether or not the code within the code chunk should be run.                                                                                          |
+| `echo`    | `TRUE` or `FALSE`                    | Choose if you want to show your code chunk in the output document. `echo = TRUE` will show the code chunk.                                            |
+| `include` | `TRUE` or `FALSE`                    | Choose if the output of a code chunk should be included in the document. `FALSE` means that your code will run, but will not show up in the document. |
+| `warning` | `TRUE` or `FALSE`                    | Whether or not you want your output document to display potential warning messages produced by your code.                                             |
+| `message` | `TRUE` or `FALSE`                    | Whether or not you want your output document to display potential messages produced by your code.                                                     |
+| `results` | `markup`, `asis`, `HOLD`, or `FALSE` | How to display text results. Note that this option only applies to normal text output (not warnings, messages, or errors).                            |
+
+Explore these and other options [Code Cells:
+Knitr](https://quarto.org/docs/reference/cells/cells-knitr.html#overview)
+
+::: callout
+## More about custom code chunks
+
+-   The default settings for the above chunk options are all `TRUE`.
+-   The default settings can be modified per chunk, or across the whole
+    .qmd document using the [execution
+    options](https://quarto.org/docs/computations/execution-options.html)
+    at the YAML level.
+-   There is also an option to apply global options to all .qmd files
+    contained in a [quarto
+    project](https://quarto.org/docs/projects/quarto-projects.html)
+    using the `_quarto.yml` file configuration. But that is an advanced
+    setup that we encourage you to explore with more time.
+:::
+
+::: challenge
+## Exercise
+
+Which option would I need to apply to the \`genus-comp\` example to not
+render the extra content from the plot?
+
+::: solution
+## Solution to Exercise
+
+\`#\| echo: FALSE
+
+#\| warning: FALSE
+
+#\| message: FALSE
+
+#\| results: FALSE\`
+:::
+:::
+
+::: challenge
+## Exercise
+
+Copy the code in the R script used to generate the blue graph in early
+episodes below. Create a code chunk in your .qmd document, and play
+around with the different options in the chunk with the code for the
+table, and **Render** the document or the code chunk to see what each
+option does to the output.
+
+What happens if you use `eval = FALSE` and `echo = FALSE`? What is the
+difference between this and `include = FALSE`?
+
+``` R
+`ggplot(data = complete_old, mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(alpha = 0.2, color = "blue")`
+```
+
+::: solution
+## Solution to Exercise
+
+Create a chunk with `{r eval = FALSE, echo = FALSE}`, then create
+another chunk with `{r include = FALSE}` to compare. `eval = FALSE` and
+`echo = FALSE` will neither run the code in the chunk, nor show the code
+in the rendered document. The code chunk essentially doesn't exist in the
+rendered document as it was never run. Whereas `include = FALSE` will run
+the code and store the output for later use.
+:::
+:::
+
+## In-line R code
+
+We've discussed code chunks and how to include them in a QMD document,
+but what if you want to integrate inline R code to present descriptive
+statistics in your paper? Using inline code can enhance your narrative
+by allowing dynamic values to appear alongside your text. Instead of
+manually typing static values, you can call them directly from your
+dataset. This way, if your data changes, the values will automatically
+update, ensuring your results are always current.
+
+To use in-line R-code, we use the same backticks that we used in the
+Markdown section, with an `r` to specify that we are generating R-code.
+The difference between in-line code and a code chunk is the number of
+backticks. In-line R code uses one backtick (`` `r` ``), whereas code
+chunks use three backticks (```` ```r``` ````).
+
+The best way to use in-line R code, is to minimize the amount of code
+you need to produce the in-line output by preparing the output in code
+chunks. Let's say we're interested in presenting the average number of
+rodents in our dataset.
+
+Now we can make an informative statement as in-line R-code. For example:
+
+Our dataset includes ``r nrow(surveys)`` cases.
+
+
+becomes...
+
+Our dataset includes `16878` cases.
+
+Because we are using in-line R code instead of the actual values, we
+have created a dynamic document that will automatically update if we
+make changes to the dataset and/or code chunks. Cool, right?
+
+::: challenge
+## Exercise
+
+Create an in-line code to represent the average weight for the sample
+
+"Our sample includes `16878` cases, with an average weight of `?`
+
+::: solution
+## Solution to Exercise
+
+..., with an average weight weight of ``r mean(as.integer(surveys$hindfoot_length), na.rm = TRUE)``millimeters.
+
+becomes...
+
+..., with an average hindfoot length of `r mean(as.integer(surveys$hindfoot_length), na.rm = TRUE)` millimeters.
+
+If you feel inspired, you may also round it up ``r round(mean(as.integer(surveys$hindfoot_length), na.rm = TRUE), 2)``
+
+becomes...
+
+..., with an average hindfoot length of `r round(mean(as.integer(surveys$hindfoot_length), na.rm = TRUE), 2)`
+:::
+:::
+
+## Other output options
+
+You can convert Quarto to a PDF or a Word document (among others). Click
+the little triangle next to the **Render** button to get a drop-down menu.
+Or you could put `pdf_document` or `word_document` in the initial header
+of the file.
+
+```         
+---
+title: "My Awesome Report"
+author: "Your name"
+output: 
+---
+```
+
+::: callout
+## Note: Creating PDF documents
+
+Creating .pdf documents may require installation of some extra software.
+The R package `tinytex` provides some tools to help make this process
+easier for R users. With `tinytex` installed, run
+`tinytex::install_tinytex()` to install the required software (you'll
+only need to do this once) and then when you **Render** to pdf `tinytex`
+will automatically detect and install any additional LaTeX packages that
+are needed to produce the pdf document. Visit the [tinytex
+website](https://yihui.org/tinytex/) for more information.
+:::
+
+::: callout
+## Note: Inserting citations into an Quarto file
+
+It is possible to insert citations into an Quarto file using the editor
+toolbar. The editor toolbar includes commonly seen formatting buttons
+generally seen in text editors (e.g., bold and italic buttons). The
+toolbar is accessible by using the settings drop-down menu (next to the
+'Render' drop-down menu) to select 'Use Visual Editor', also accessible
+through the shortcut 'Crtl+Shift+F4'. From here, clicking 'Insert'
+allows 'Citation' to be selected (shortcut: 'Crtl+Shift+F8'). For
+example, searching '10.1007/978-3-319-24277-4' in 'From DOI' and
+inserting will provide the citation for `ggplot2` [@wickham2016]. This
+will also save the citation(s) in 'references.bib' in the current
+working directory. Visit the [R Studio
+website](https://rstudio.github.io/visual-markdown-editing/) for more
+information. Tip: you may change citation styles automatically within RStudio.
+:::
+
+## Resources
+
+-   [Markdown
+    Basics](https://quarto.org/docs/authoring/markdown-basics.html)
+-   [Introduction to Reproducible Publications with
+    RStudio](https://carpentries-incubator.github.io/reproducible-publications-quarto)
+
+::: keypoints
+-   Quarto is a useful for creating reproducible documents combining
+    text and executable R-code.
+-   Specify chunk options to control formatting of the output document
+:::
