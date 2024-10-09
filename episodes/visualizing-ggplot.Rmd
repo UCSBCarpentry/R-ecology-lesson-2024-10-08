@@ -71,7 +71,7 @@ View(complete_old)
 
 If you hover over the tab for the interactive `View()`, you can click the "x" that appears, which will close the tab.
 
-We can find out more about the dataset by using the `str()` function to examine the **str**ucture of the data.
+We can find out more about the dataset by using the `str()` function to examine the structure of the data.
 
 ```{r str}
 str(complete_old)
