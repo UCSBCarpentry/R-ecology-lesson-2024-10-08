@@ -233,7 +233,7 @@ surveys <- read_csv("data/cleaned/surveys.csv")
 library(tidyverse)
 
 # Load the dataset
-surveys <- read_csv("surveys.csv")
+surveys <- read_csv("data/cleaned/surveys.csv")
 
 # Count occurrences of Dipodomys and Onychomys by year
 occurrences_by_year <- surveys %>%
