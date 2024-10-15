@@ -59,7 +59,7 @@ In the YAML, the only required field is the `format:`, which specifies the type 
 
 After the header, to begin the body of the document, you start typing after the end of the YAML header (i.e., after the second `---`).
 
-While we will stick to the basics, it is important to note that Quarto provides a rich set of YAML metadata keys to describe front matter details and configuration settings to customize how your document will render. Even though we won't be able to cover those today, here is an an example that can inspire you to explore it further:
+While we will stick to the basics, it is important to note that Quarto provides a rich set of YAML metadata keys to describe front-matter details and configuration settings to customize how your document will render. Even though we won't be able to cover those today, here is an example that can inspire you to explore it further:
 
 ```         
 ---
@@ -223,7 +223,7 @@ To load **ggplot2** and **dplyr** and our `surveys_complete_77_89.csv` file, we 
 
 ```{r really-running, echo=FALSE, message=FALSE, purl=FALSE}
 library(tidyverse)
-surveys <- read_csv("data/cleaned/surveys_complete_77_89.csv")
+surveys <- read_csv("data/cleaned/surveys.csv")
 ```
 
 ````{verbatim, lang = "markdown"}
@@ -233,7 +233,7 @@ surveys <- read_csv("data/cleaned/surveys_complete_77_89.csv")
 library(tidyverse)
 
 # Load the dataset
-surveys <- read_csv("data/cleaned/surveys_complete_77_89.csv")
+surveys <- read_csv("surveys.csv")
 
 # Count occurrences of Dipodomys and Onychomys by year
 occurrences_by_year <- surveys %>%
@@ -254,7 +254,7 @@ ggplot(occurrences_by_year, aes(x = year, y = count, color = genus, group = genu
 ```
 ````
 
-You don’t need to **Render** your entire document whenever you want to view how the code you are currently working on is rendering. While this might not be an issue for shorter documents, it can be time-consuming with many code chunks when you want to check the output of a specific block. In such cases, you can run the code chunk by clicking the green triangle in the top right corner, or by using the keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> on Windows and Linux, or <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>C</kbd> on Mac.
+You don’t need to **Render** your entire document whenever you want to view how the code you are currently working on is rendering. While this might not be an issue for shorter documents, it can be time-consuming with many code chunks when you want to check the output of a specific block. In such cases, you can run the code chunk by clicking the green triangle in the top right corner or by using the keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> on Windows and Linux, or <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>C</kbd> on Mac.
 
 Run the code chunk to make sure you get the desired output.
 
@@ -282,7 +282,7 @@ Explore these and other options [Code Cells: Knitr](https://quarto.org/docs/refe
 
 -   The default settings for the above chunk options are all `TRUE`.
 -   The default settings can be modified per chunk, or across the whole .qmd document using the [execution options](https://quarto.org/docs/computations/execution-options.html) at the YAML level.
--   There is also an option to apply global options to all .qmd files contained in a [quarto project](https://quarto.org/docs/projects/quarto-projects.html) using the `_quarto.yml` file configuration. But that is an advanced setup we encourage you to explore with more time.
+-   There is also an option to apply global options to all .qmd files contained in a [quarto project](https://quarto.org/docs/projects/quarto-projects.html) using the `_quarto.yml` file configuration. But that is an advanced setup, and we encourage you to explore it with more time.
 :::
 
 ::: challenge
@@ -345,7 +345,7 @@ Because we are using in-line R code instead of the actual values, we have create
 
 Create an in-line code to represent the average weight for the sample:
 
-"Our sample includes `16878` cases, with an average weight of `?`
+"Our sample includes `16878` cases, with an average hindfoot length of `?`
 
 ::: solution
 ## Solution
